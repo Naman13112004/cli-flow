@@ -39,6 +39,10 @@ jobs:
     # Warning: MSVC flags are different.
     # Easiest way on GitHub Actions windows-latest is often just to use MSVC.
     # Let's try to compile with MSVC for Windows.
+    - name: Setup MSVC
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
+    
     - name: Build (Windows)
       if: runner.os == 'Windows'
       # /EHsc enables exceptions, /std:c++17 sets version, /Fe sets output name
