@@ -23,7 +23,7 @@ g++ -std=c++17 *.cpp -o cliflow
 
 ## Installation (Binaries)
 
-You don't need to compile the code yourself. You can download the latest pre-compiled binary for your system from the [Releases](https://github.com/YOUR_USERNAME/cli-flow/releases) page.
+You don't need to compile the code yourself. You can download the latest pre-compiled binary for your system from the [Releases](https://github.com/Naman13112004/cli-flow/releases) page.
 
 1.  **Download** the binary for your OS (`cliflow.exe` for Windows, `cliflow-linux`, or `cliflow-macos`).
 2.  **Make Global** (Optional):
