@@ -1,0 +1,52 @@
+name: Build and Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: cliflow
+            asset_name: cliflow-linux
+          - os: windows-latest
+            artifact_name: cliflow.exe
+            asset_name: cliflow.exe
+          - os: macos-latest
+            artifact_name: cliflow
+            asset_name: cliflow-macos
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build (Linux/macOS)
+      if: runner.os != 'Windows'
+      run: g++ -std=c++17 parser.cpp analyzer.cpp report.cpp main.cpp -o ${{ matrix.artifact_name }}
+
+    # Windows builds often use MSVC by default, but we can access g++ via MinGW if available,
+    # or just use MSVC (cl.exe). Since we wrote standard C++, MSVC is fine too.
+    # However, for consistency with our local dev, let's try using g++ if possible, 
+    # but 'cl' is definitely there. Our code is portable.
+    # Let's stick to g++ on Windows via MSYS2 or MinGW if pre-installed, 
+    # OR simpler: Use MSVC 'cl' command.
+    # Warning: MSVC flags are different.
+    # Easiest way on GitHub Actions windows-latest is often just to use MSVC.
+    # Let's try to compile with MSVC for Windows.
+    - name: Build (Windows)
+      if: runner.os == 'Windows'
+      # /EHsc enables exceptions, /std:c++17 sets version, /Fe sets output name
+      run: cl /EHsc /std:c++17 parser.cpp analyzer.cpp report.cpp main.cpp /Fe:${{ matrix.artifact_name }}
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./${{ matrix.artifact_name }}
+        asset_name: ${{ matrix.asset_name }}
+        asset_content_type: application/octet-stream

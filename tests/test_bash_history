@@ -1,0 +1,14 @@
+cd /var/www
+ls -la
+git status
+git add .
+git commit -m "update"
+cd /home/user
+sudo apt update
+sudo apt upgrade
+vim main.cpp
+g++ main.cpp
+./a.out
+git status
+git push
+rm -rf /tmp/junk

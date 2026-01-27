@@ -1,0 +1,7 @@
+: 1670000000:0;cd ~/projects
+: 1670000010:0;ls
+: 1670000020:0;git status
+: 1670000030:0;docker ps
+: 1670000040:0;docker run -it ubuntu bash
+: 1670000050:0;echo "hello world"
+: 1670000060:0;sudo rm -rf /
