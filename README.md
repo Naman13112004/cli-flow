@@ -38,6 +38,36 @@ You don't need to compile the code yourself. You can download the latest pre-com
     cliflow --help
     ```
 
+## Windows Notes (Important)
+
+Unlike Linux and macOS, **Windows does not support automatic shell history detection** in `cliflow`.
+
+On Windows, you **must explicitly provide the PowerShell history file path** using the `--file` option.
+
+### PowerShell History File Location
+
+The default PowerShell history file is located at:
+```bash
+%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+```
+
+**Important**:  
+`%userprofile%` is an environment variable and **must be replaced with your actual user directory path**.
+
+#### Example
+
+If your Windows username is `ABC`, the full path will be:
+
+   ```bash
+   C:\Users\ABC\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+   ```
+
+## Usage on Windows
+
+```bash
+cliflow --file C:\Users\YourUsername\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+```
+
 ## Usage
 
 ### Default (Auto-detect)
